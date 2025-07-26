@@ -1,0 +1,58 @@
+import { DataTypes, Model, type Optional } from "sequelize";
+import sequelize from "../connection";
+
+interface ProjectAttributes {
+  id: number;
+  name: string;
+  description?: string;
+  updatedAt?: Date;
+  createdAt?: Date;
+}
+
+interface ProjectCreationAttributes
+  extends Optional<ProjectAttributes, "id" | "createdAt" | "updatedAt"> {}
+
+class Project
+  extends Model<ProjectAttributes, ProjectCreationAttributes>
+  implements ProjectAttributes
+{
+  public id!: number;
+  public name!: string;
+  public description!: string;
+  public readonly updatedAt!: Date;
+  public readonly createdAt!: Date;
+}
+
+Project.init(
+  {
+    id: {
+      type: DataTypes.INTEGER,
+      autoIncrement: true,
+      primaryKey: true,
+    },
+    name: {
+      type: DataTypes.STRING,
+      unique: true,
+      allowNull: false,
+    },
+    description: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    createdAt: {
+      type: DataTypes.DATE,
+      defaultValue: DataTypes.NOW,
+    },
+    updatedAt: {
+      type: DataTypes.DATE,
+      defaultValue: DataTypes.NOW,
+    },
+  },
+  {
+    sequelize,
+    tableName: "projects",
+    modelName: "Project",
+  },
+);
+
+export default Project;
