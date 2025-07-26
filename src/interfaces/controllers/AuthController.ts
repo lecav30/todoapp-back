@@ -1,6 +1,7 @@
 import type { Request, Response } from "express";
 import User from "../../infrastructure/db/models/User";
 import bcrypt from "bcrypt";
+import { generateToken } from "../../infrastructure/security/jwt";
 
 // Register a new user
 export async function register(req: Request, res: Response) {
@@ -48,7 +49,13 @@ export async function login(req: Request, res: Response) {
       return res.status(400).json({ message: "Invalid email or password" });
     }
 
-    res.status(200).json({ message: "Login succesful", user });
+    // Generate JWT token
+    const token = generateToken({
+      id: user.get("id"),
+      email: user.get("email"),
+    });
+
+    res.status(200).json({ message: "Login succesful", token });
   } catch (err: any) {
     res.status(500).json({ error: err.message });
   }
