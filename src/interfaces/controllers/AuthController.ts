@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import type { Request, Response } from "express";
 import User from "../../infrastructure/db/models/User";
 import bcrypt from "bcrypt";
 

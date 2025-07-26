@@ -4,7 +4,9 @@
   "type": "module",
   "private": true,
   "devDependencies": {
+    "@types/bcrypt": "^6.0.0",
     "@types/bun": "latest",
+    "@types/express": "^5.0.3",
     "pg": "^8.16.3",
     "pg-hstore": "^2.3.4",
     "sequelize": "^6.37.7",
