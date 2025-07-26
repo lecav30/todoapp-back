@@ -1,11 +1,22 @@
-const express = require('express')
-const app = express()
-const port = 3000
+import express from "express";
+import cors from "cors";
+import authRoutes from "./interfaces/routes/auth.routes";
+import sequelize from "./infrastructure/db/connection";
+import dotenv from "dotenv";
 
-app.get('/', (req, res) => {
-  res.send('Hello World!')
-})
+dotenv.config();
 
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
-})
+const app = express();
+
+app.use(cors());
+app.use(express.json());
+
+// Routes
+dotenv.config();
+app.use("/auth", authRoutes);
+
+const PORT = process.env.PORT || 3000;
+
+sequelize.sync().then(() => {
+  app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+});
