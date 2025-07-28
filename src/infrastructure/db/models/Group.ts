@@ -5,6 +5,7 @@ interface GroupAttributes {
   id: number;
   name: string;
   description?: string;
+  projectId: number;
   updatedAt?: Date;
   createdAt?: Date;
 }
@@ -19,6 +20,7 @@ class Group
   public id!: number;
   public name!: string;
   public description!: string;
+  public projectId!: number;
   public readonly updatedAt!: Date;
   public readonly createdAt!: Date;
 }
@@ -38,6 +40,15 @@ Group.init(
     description: {
       type: DataTypes.STRING,
       allowNull: true,
+    },
+    projectId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: "project",
+        key: "id",
+      },
+      onDelete: "CASCADE",
     },
     createdAt: {
       type: DataTypes.DATE,

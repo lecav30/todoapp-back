@@ -7,6 +7,7 @@ interface TaskAttributes {
   description: string;
   completed?: boolean;
   deadline?: Date;
+  groupId: number;
   updatedAt?: Date;
   createdAt?: Date;
 }
@@ -23,6 +24,7 @@ class Task
   public description!: string;
   public completed!: boolean;
   public deadline!: Date;
+  public groupId!: number;
   public readonly updatedAt!: Date;
   public readonly createdAt!: Date;
 }
@@ -50,6 +52,15 @@ Task.init(
     deadline: {
       type: DataTypes.DATE,
       allowNull: true,
+    },
+    groupId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: "group",
+        key: "id",
+      },
+      onDelete: "CASCADE",
     },
     createdAt: {
       type: DataTypes.DATE,

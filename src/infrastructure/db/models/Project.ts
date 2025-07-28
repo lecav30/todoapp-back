@@ -5,6 +5,7 @@ interface ProjectAttributes {
   id: number;
   name: string;
   description?: string;
+  userId: number;
   updatedAt?: Date;
   createdAt?: Date;
 }
@@ -19,6 +20,7 @@ class Project
   public id!: number;
   public name!: string;
   public description!: string;
+  public userId!: number;
   public readonly updatedAt!: Date;
   public readonly createdAt!: Date;
 }
@@ -38,6 +40,15 @@ Project.init(
     description: {
       type: DataTypes.STRING,
       allowNull: true,
+    },
+    userId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: "users",
+        key: "id",
+      },
+      onDelete: "CASCADE",
     },
     createdAt: {
       type: DataTypes.DATE,
