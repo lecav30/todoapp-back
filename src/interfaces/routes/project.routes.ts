@@ -9,7 +9,7 @@ import {
 const router = Router();
 
 router.post("/create", authMiddleware, createProject);
-router.get("/getAll", authMiddleware, getProjectsByUser);
+router.get("/getByUser", authMiddleware, getProjectsByUser);
 router.get("/:projectId", authMiddleware, getProjectById);
 
 export default router;
