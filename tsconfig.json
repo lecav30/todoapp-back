@@ -25,9 +25,7 @@
     "noUnusedLocals": false,
     "noUnusedParameters": false,
     "noPropertyAccessFromIndexSignature": false,
-
-    // Own
-    "rootDir": "./src",
-    "outDir": "./dist",
-  }
+  },
+  "include": ["src"],
+  "exclude": ["node_modules", "dist"]
 }
