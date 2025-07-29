@@ -1,6 +1,6 @@
 import type { Request, Response } from "express";
 import { addProject } from "../../application/project/addProject";
-import { listProjects } from "../../application/project/listProjects";
+import { listProjectsByUser } from "../../application/project/listProjectsByUser";
 import { findProject } from "../../application/project/findProject";
 
 export async function createProject(req: Request, res: Response) {
@@ -17,10 +17,10 @@ export async function createProject(req: Request, res: Response) {
   }
 }
 
-export async function getAllProjects(req: Request, res: Response) {
+export async function getProjectsByUser(req: Request, res: Response) {
   try {
     const userId = (req as any).user.id;
-    const projects = await listProjects(userId);
+    const projects = await listProjectsByUser(userId);
 
     if (!projects) {
       return res.status(404).json({ error: "Projects not found" });

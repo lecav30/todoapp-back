@@ -2,7 +2,7 @@ import { ProjectRepository } from "../../infrastructure/repositories/ProjectRepo
 
 const projectRepo = new ProjectRepository();
 
-export async function listProjects(userId: number) {
+export async function listProjectsByUser(userId: number) {
   const projectList = await projectRepo.findByUserId(userId);
   return projectList;
 }
