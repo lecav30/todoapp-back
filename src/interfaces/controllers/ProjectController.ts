@@ -35,9 +35,8 @@ export async function getAllProjects(req: Request, res: Response) {
 export async function getProjectById(req: Request, res: Response) {
   try {
     const { projectId } = req.params; // get URL parameter
-    const userId = (req as any).user.id;
 
-    const project = await findProject(Number(projectId), userId);
+    const project = await findProject(Number(projectId));
     if (!project) {
       return res.status(404).json({ error: "Project not found" });
     }

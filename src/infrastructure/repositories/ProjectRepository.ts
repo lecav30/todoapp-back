@@ -8,8 +8,8 @@ export class ProjectRepository implements IProjectRepository {
   findByUserId(userId: number): Promise<Project[] | null> {
     return Project.findAll({ where: { userId } });
   }
-  findById(id: number, userId: number): Promise<Project | null> {
-    return Project.findOne({ where: { id, userId } });
+  findById(id: number): Promise<Project | null> {
+    return Project.findOne({ where: { id } });
   }
   createProject(
     name: string,
