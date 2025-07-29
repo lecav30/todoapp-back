@@ -47,6 +47,7 @@ Task.init(
     },
     completed: {
       type: DataTypes.BOOLEAN,
+      defaultValue: false,
       allowNull: false,
     },
     deadline: {
