@@ -8,7 +8,7 @@ export async function createGroup(req: Request, res: Response) {
     const { name, description, projectId } = req.body;
     const newGroup = await addGroup(name, description, projectId);
     res.status(201).json({
-      message: "Project created",
+      message: "Group created",
       project: newGroup,
     });
   } catch (err: any) {
