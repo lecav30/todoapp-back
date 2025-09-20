@@ -18,4 +18,17 @@ export class GroupRepository implements IGroupRepository {
   ): Promise<Group> {
     return Group.create({ name, description, projectId });
   }
+  async updateGroup(
+    id: number,
+    updates: {
+      name?: string;
+      description?: string;
+    },
+  ): Promise<number> {
+    const [affectedCount] = await Group.update(updates, { where: { id } });
+    return affectedCount;
+  }
+  deleteGroup(id: number): Promise<number> {
+    return Group.destroy({ where: { id } });
+  }
 }
