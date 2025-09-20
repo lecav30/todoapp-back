@@ -2,6 +2,7 @@ import type { Request, Response } from "express";
 import { addTask } from "../../application/task/addTask";
 import { listTasksByGroup } from "../../application/task/listTasksByGroup";
 import { findTask } from "../../application/task/findTask";
+import { updateTask } from "../../application/task/updateTask";
 
 export async function createTask(req: Request, res: Response) {
   try {
@@ -42,6 +43,55 @@ export async function getTaskById(req: Request, res: Response) {
     }
 
     res.json(task);
+  } catch (err: any) {
+    res.status(500).json({ error: err.message });
+  }
+}
+
+export async function updateTaskById(req: Request, res: Response) {
+  try {
+    const { taskId } = req.params;
+
+    const haveBeenUpdated = await updateTask(Number(taskId), req.body);
+
+    if (haveBeenUpdated === 0) {
+      return res.status(404).json({ error: "Task not found" });
+    }
+
+    const updatedTask = await findTask(Number(taskId));
+
+    res.status(200).json({
+      message: "Task updated",
+      task: updatedTask,
+    });
+  } catch (err: any) {
+    res.status(500).json({ error: err.message });
+  }
+}
+
+export async function toggleTaskCompletion(req: Request, res: Response) {
+  try {
+    const { taskId } = req.params;
+
+    const task = await findTask(Number(taskId));
+    if (!task) {
+      return res.status(404).json({ error: "Task not found" });
+    }
+
+    const haveBeenUpdated = await updateTask(Number(taskId), {
+      completed: !task.completed,
+    });
+
+    if (haveBeenUpdated === 0) {
+      return res.status(404).json({ error: "Task not found" });
+    }
+
+    const updatedTask = await findTask(Number(taskId));
+
+    res.status(200).json({
+      message: "Task updated",
+      task: updatedTask,
+    });
   } catch (err: any) {
     res.status(500).json({ error: err.message });
   }
