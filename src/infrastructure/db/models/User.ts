@@ -19,11 +19,11 @@ class User
   extends Model<UserAttributes, UserCreationAttributes>
   implements UserAttributes
 {
-  public id!: number;
-  public email!: string;
-  public password!: string;
-  public readonly updatedAt!: Date;
-  public readonly createdAt!: Date;
+  declare id: number;
+  declare email: string;
+  declare password: string;
+  declare readonly updatedAt: Date;
+  declare readonly createdAt: Date;
 }
 
 // Initialize the User model and define its columns

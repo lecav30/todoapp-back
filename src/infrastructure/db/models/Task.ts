@@ -19,14 +19,14 @@ class Task
   extends Model<TaskAttributes, TaskCreationAttributes>
   implements TaskAttributes
 {
-  public id!: number;
-  public name!: string;
-  public description!: string;
-  public completed!: boolean;
-  public deadline!: Date;
-  public groupId!: number;
-  public readonly updatedAt!: Date;
-  public readonly createdAt!: Date;
+  declare id: number;
+  declare name: string;
+  declare description: string;
+  declare completed: boolean;
+  declare deadline: Date;
+  declare groupId: number;
+  declare readonly updatedAt: Date;
+  declare readonly createdAt: Date;
 }
 
 Task.init(

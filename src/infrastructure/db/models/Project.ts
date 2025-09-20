@@ -17,12 +17,12 @@ class Project
   extends Model<ProjectAttributes, ProjectCreationAttributes>
   implements ProjectAttributes
 {
-  public id!: number;
-  public name!: string;
-  public description!: string;
-  public userId!: number;
-  public readonly updatedAt!: Date;
-  public readonly createdAt!: Date;
+  declare id: number;
+  declare name: string;
+  declare description: string;
+  declare userId: number;
+  declare readonly updatedAt: Date;
+  declare readonly createdAt: Date;
 }
 
 Project.init(
