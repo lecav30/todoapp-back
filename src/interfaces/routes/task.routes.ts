@@ -2,6 +2,7 @@ import { Router } from "express";
 import { authMiddleware } from "../middlewares/authMiddleware";
 import {
   createTask,
+  deleteTaskById,
   getTaskById,
   getTasksByGroup,
   toggleTaskCompletion,
@@ -15,5 +16,6 @@ router.get("/getByGroup/:groupId", authMiddleware, getTasksByGroup);
 router.get("/:taskId", authMiddleware, getTaskById);
 router.patch("/:taskId", authMiddleware, updateTaskById);
 router.patch("/:taskId/toggleCompletion", authMiddleware, toggleTaskCompletion);
+router.delete("/:taskId", authMiddleware, deleteTaskById);
 
 export default router;

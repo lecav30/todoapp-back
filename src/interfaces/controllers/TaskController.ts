@@ -3,6 +3,7 @@ import { addTask } from "../../application/task/addTask";
 import { listTasksByGroup } from "../../application/task/listTasksByGroup";
 import { findTask } from "../../application/task/findTask";
 import { updateTask } from "../../application/task/updateTask";
+import { deleteTask } from "../../application/task/deleteTask";
 
 export async function createTask(req: Request, res: Response) {
   try {
@@ -91,6 +92,30 @@ export async function toggleTaskCompletion(req: Request, res: Response) {
     res.status(200).json({
       message: "Task updated",
       task: updatedTask,
+    });
+  } catch (err: any) {
+    res.status(500).json({ error: err.message });
+  }
+}
+
+export async function deleteTaskById(req: Request, res: Response) {
+  try {
+    const { taskId } = req.params;
+
+    const task = await findTask(Number(taskId));
+    if (!task) {
+      return res.status(404).json({ error: "Task not found" });
+    }
+
+    const haveBeenDeleted = await deleteTask(Number(taskId));
+
+    if (haveBeenDeleted === 0) {
+      return res.status(404).json({ error: "Task not found" });
+    }
+
+    res.status(200).json({
+      message: "Task deleted",
+      task: task,
     });
   } catch (err: any) {
     res.status(500).json({ error: err.message });

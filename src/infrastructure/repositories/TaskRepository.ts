@@ -34,4 +34,7 @@ export class TaskRepository implements ITaskRepository {
     const [affectedCount] = await Task.update(updates, { where: { id } });
     return affectedCount;
   }
+  deleteTask(id: number): Promise<number> {
+    return Task.destroy({ where: { id } });
+  }
 }
