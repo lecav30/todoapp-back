@@ -32,6 +32,6 @@ const PORT = process.env.PORT || 3000;
 setupAssociations();
 
 // sync force just to develop locally
-sequelize.sync({ force: true }).then(() => {
+sequelize.sync(/* { force: true } */).then(() => {
   app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 });
