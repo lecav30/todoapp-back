@@ -44,11 +44,11 @@ Group.init(
     projectId: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      references: {
+      /* references: {
         model: "project",
         key: "id",
       },
-      onDelete: "CASCADE",
+      onDelete: "CASCADE", */
     },
     createdAt: {
       type: DataTypes.DATE,

@@ -57,11 +57,11 @@ Task.init(
     groupId: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      references: {
+      /* references: {
         model: "group",
         key: "id",
       },
-      onDelete: "CASCADE",
+      onDelete: "CASCADE", */
     },
     createdAt: {
       type: DataTypes.DATE,
