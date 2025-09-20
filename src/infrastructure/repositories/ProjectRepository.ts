@@ -6,7 +6,10 @@ export class ProjectRepository implements IProjectRepository {
     return Project.findOne({ where: { name, userId } });
   }
   findByUserId(userId: number): Promise<Project[] | null> {
-    return Project.findAll({ where: { userId } });
+    return Project.findAll({
+      where: { userId },
+      order: [["createdAt", "ASC"]],
+    });
   }
   findById(id: number): Promise<Project | null> {
     return Project.findOne({ where: { id } });
@@ -17,5 +20,18 @@ export class ProjectRepository implements IProjectRepository {
     userId: number,
   ): Promise<Project> {
     return Project.create({ name, description, userId });
+  }
+  async updateProject(
+    id: number,
+    updates: {
+      name?: string;
+      description?: string;
+    },
+  ): Promise<number> {
+    const [affectedCount] = await Project.update(updates, { where: { id } });
+    return affectedCount;
+  }
+  deleteProject(id: number): Promise<number> {
+    return Project.destroy({ where: { id } });
   }
 }

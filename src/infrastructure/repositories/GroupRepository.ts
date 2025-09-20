@@ -6,7 +6,10 @@ export class GroupRepository implements IGroupRepository {
     return Group.findOne({ where: { name, projectId } });
   }
   findByProjectId(projectId: number): Promise<Group[] | null> {
-    return Group.findAll({ where: { projectId } });
+    return Group.findAll({
+      where: { projectId },
+      order: [["createdAt", "ASC"]],
+    });
   }
   findById(id: number): Promise<Group | null> {
     return Group.findOne({ where: { id } });
