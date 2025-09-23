@@ -1,5 +1,6 @@
 import express from "express";
 import cors from "cors";
+import helmet from "helmet";
 import authRoutes from "./interfaces/routes/auth.routes";
 import projectRoutes from "./interfaces/routes/project.routes";
 import groupRoutes from "./interfaces/routes/group.routes";
@@ -14,14 +15,18 @@ const app = express();
 
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: process.env.CLIENT_URL,
     credentials: true, // allow cookies/autorización
+  }),
+);
+app.use(
+  helmet({
+    contentSecurityPolicy: false, // desactivar CSP si no lo configuras aún
   }),
 );
 app.use(express.json());
 
 // Routes
-dotenv.config();
 app.use("/auth", authRoutes);
 app.use("/project", projectRoutes);
 app.use("/group", groupRoutes);
@@ -32,6 +37,17 @@ const PORT = process.env.PORT || 3000;
 setupAssociations();
 
 // sync force just to develop locally
-sequelize.sync(/* { force: true } */).then(() => {
-  app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
-});
+// sequelize.sync({ force: true }).then(() => {
+//   app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+// });
+
+sequelize
+  .authenticate()
+  .then(() => {
+    console.log("Database connected");
+    app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+  })
+  .catch((err) => {
+    console.error("DB connection error:", err);
+    process.exit(1);
+  });
