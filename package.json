@@ -7,7 +7,12 @@
     "dev": "bun run --watch src/index.ts",
     "start": "bun run src/index.ts",
     "build": "tsc --noEmit false",
-    "lint": "tsc --noEmit"
+    "lint": "tsc --noEmit",
+    "migration:generate": "sequelize-cli migration:generate --migrations-path src/migrations",
+    "migrate": "sequelize-cli db:migrate --migrations-path src/migrations",
+    "migrate:undo": "sequelize-cli db:migrate:undo --migrations-path src/migrations",
+    "seed": "sequelize-cli db:seed:all --seeders-path src/seeders",
+    "seed:undo": "sequelize-cli db:seed:undo --seeders-path src/seeders"
   },
   "devDependencies": {
     "@types/bcrypt": "^6.0.0",
