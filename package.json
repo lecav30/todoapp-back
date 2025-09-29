@@ -8,7 +8,7 @@
     "start": "bun run dist/index.js",
     "build": "tsc --noEmit false",
     "lint": "tsc --noEmit",
-    "migrate": "sequelize-cli db:migrate --migrations-path dist/src/migrations",
+    "migrate": "sequelize-cli db:migrate --migrations-path dist/migrations",
     "migration:generate": "sequelize-cli migration:generate --migrations-path src/migrations",
     "migrate:undo": "sequelize-cli db:migrate:undo --migrations-path src/migrations",
     "seed": "sequelize-cli db:seed:all --seeders-path src/seeders",
